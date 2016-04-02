@@ -14,8 +14,35 @@ class LaneStore {
 		lane.notes = lane.notes || [];
 
 		this.setState({
-			lanes: lanes.concat(lane)
+			lanes: lanes.concat(lane) 
 		});
+	}
+	attachToLane({laneId, noteId}) {
+		const lanes = this.lanes.map(lane => {
+			if (lane.id === laneId) {
+				if (lane.notes.includes(noteId)) {
+					console.warn('Already attached note to lane', lanes);
+				}
+				else {
+					lane.notes.push(noteId);
+				}
+			}
+
+			return lane;
+		});
+
+		this.setState({lanes});
+	}
+	detachFomrLane({laneId, noteId}) {
+		const lanes = this.lanes.map(lane => {
+			if (lane.id === laneId) {
+				lane.notes = lane.notes.filter(note => note !== noteId);
+			}
+
+			return lane;
+		});
+
+		this.setState({lanes});
 	}
 }
 

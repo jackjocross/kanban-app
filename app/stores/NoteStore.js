@@ -7,6 +7,10 @@ class NoteStore {
 		this.bindActions(NoteActions);
 
 		this.notes = [];
+
+		this.exportPublicMethods({
+			getNotesById: this.getNotesById.bind(this);
+		});
 	}
 
 	create(note) {
@@ -17,6 +21,8 @@ class NoteStore {
 		this.setState({
 			notes: notes.concat(note)
 		});
+
+		return note;
 	}
 	update(updatedNote) {
 		const notes = this.notes.map(note => {
